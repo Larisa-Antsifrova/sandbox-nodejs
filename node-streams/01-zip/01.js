@@ -2,13 +2,14 @@ import fs from 'fs/promises';
 import zlib from 'zlib';
 import { promisify } from 'util';
 
-const file = 'chapter.txt';
+const sourceFile = 'chapter.txt';
+const destFile = 'test-no-stream.txt';
 
 try {
-  const content = await fs.readFile(file);
+  const content = await fs.readFile(sourceFile);
   const archive = await promisify(zlib.gzip)(content);
 
-  await fs.writeFile(`${file}.gz`, archive);
+  await fs.writeFile(`${destFile}.gz`, archive);
 } catch (error) {
   console.log(error);
 }
