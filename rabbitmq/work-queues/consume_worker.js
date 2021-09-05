@@ -10,6 +10,9 @@ const consumeTask = async () => {
 
   console.log(`waiting for messages in queue: ${queueName}`);
 
+  // prefetching for fare dispatch
+  channel.prefetch(1);
+
   channel.consume(
     queueName,
     message => {
