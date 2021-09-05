@@ -19,9 +19,11 @@ const consumeTask = async () => {
 
       setTimeout(() => {
         console.log('The task is complete!');
+
+        channel.ack(message);
       }, secs * 1000);
     },
-    { noAck: true },
+    { noAck: false },
   );
 };
 
