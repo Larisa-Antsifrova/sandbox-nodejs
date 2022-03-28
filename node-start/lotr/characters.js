@@ -1,4 +1,4 @@
-const characters = [
+let characters = [
   {
     name: "Frodo",
     hasRing: false,
