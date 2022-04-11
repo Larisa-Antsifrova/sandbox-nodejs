@@ -19,12 +19,16 @@ setTimeout(() => {
   console.log("Loop is over!");
 
   Promise.resolve().then(() => {
-    console.log("Promise inside timeout");
+    console.log("Promise inside timeout!");
   });
+
+  process.nextTick(() => console.log("Tick inside timeout!"));
 }, 0);
 
 Promise.resolve().then(() => {
   console.log("Promise on the way!");
 });
+
+process.nextTick(() => console.log("Tick!"));
 
 console.log("Finish");
