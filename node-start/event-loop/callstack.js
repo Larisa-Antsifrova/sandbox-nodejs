@@ -12,4 +12,8 @@ function d() {
   console.log(a);
 }
 
+setTimeout(() => {
+  console.log("Timeout!");
+}, 1000);
+
 b();
