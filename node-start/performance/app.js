@@ -1,7 +1,10 @@
 const perf_hooks = require("perf_hooks");
 
+test = perf_hooks.performance.timerify(test);
+
 const performanceObserver = new perf_hooks.PerformanceObserver(
   (items, observer) => {
+    console.log(items.getEntries());
     const entry = items.getEntriesByName("slow").pop();
 
     console.log(`Entry name: ${entry.name}. Entry duration: ${entry.duration}`);
@@ -11,8 +14,16 @@ const performanceObserver = new perf_hooks.PerformanceObserver(
 );
 
 performanceObserver.observe({
-  entryTypes: ["measure"],
+  entryTypes: ["measure", "function"],
 });
+
+function test() {
+  const arr = [];
+
+  for (let i = 0; i < 1000000; i++) {
+    arr.push(i * i);
+  }
+}
 
 function slow() {
   performance.mark("Start");
@@ -31,3 +42,4 @@ function slow() {
 }
 
 slow();
+test();
