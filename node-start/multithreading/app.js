@@ -1,30 +1,39 @@
-const factorial = require("./factorial");
+const { Worker } = require("worker_threads");
 
 const compute = array => {
-  const arr = [];
+  return new Promise((resolve, reject) => {
+    const worker = new Worker("./worker.js", {
+      workerData: {
+        array,
+      },
+    });
 
-  for (let i = 0; i < 100000000; i++) {
-    arr.push(i * i);
-  }
+    worker.on("message", message => resolve(message));
 
-  return array.map(el => factorial(el));
+    worker.on("error", error => reject(error));
+
+    worker.on("exit", () => console.log("Worker is done!"));
+  });
 };
 
-const main = () => {
-  performance.mark("start");
+const main = async () => {
+  try {
+    performance.mark("start");
 
-  const result = [
-    compute([20, 25, 30, 35, 40, 45, 50]),
-    compute([20, 25, 30, 35, 40, 45, 50]),
-    compute([20, 25, 30, 35, 40, 45, 50]),
-    compute([20, 25, 30, 35, 40, 45, 50]),
-  ];
+    const result = await Promise.all([
+      compute([20, 25, 30, 35, 40, 45, 50]),
+      compute([20, 25, 30, 35, 40, 45, 50]),
+      compute([20, 25, 30, 35, 40, 45, 50]),
+      compute([20, 25, 30, 35, 40, 45, 50]),
+    ]);
 
-  console.log("Result:", result);
+    console.log("Result:", result);
 
-  performance.mark("end");
-  performance.measure("main", "start", "end");
-  console.log(performance.getEntriesByName("main").pop());
+    performance.mark("end");
+    performance.measure("main", "start", "end");
+  } catch (error) {
+    console.error("Error: ", error.message);
+  }
 };
 
 main();
