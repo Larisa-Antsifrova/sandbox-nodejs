@@ -3,8 +3,8 @@ const factorial = require("./factorial");
 const compute = array => {
   const arr = [];
 
-  for (let i = 0; i < 1000000; i++) {
-    arr.push(i);
+  for (let i = 0; i < 100000000; i++) {
+    arr.push(i * i);
   }
 
   return array.map(el => factorial(el));
@@ -30,5 +30,9 @@ const main = () => {
     console.error("Error: ", error.message);
   }
 };
+
+setTimeout(() => {
+  console.log("Timeout in app!");
+}, 0);
 
 main();

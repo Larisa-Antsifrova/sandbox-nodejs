@@ -8,9 +8,15 @@ const compute = array => {
       },
     });
 
-    worker.on("message", message => resolve(message));
+    worker.on("message", message => {
+      console.log("Worker start: ", worker.threadId);
+      resolve(message);
+    });
 
-    worker.on("error", error => reject(error));
+    worker.on("error", error => {
+      console.log("Error: ", error.message);
+      reject(error);
+    });
 
     worker.on("exit", () => console.log("Worker is done!"));
   });
@@ -31,13 +37,14 @@ const main = async () => {
 
     performance.mark("end");
     performance.measure("main", "start", "end");
+    console.log("Performance: ", performance.getEntriesByName("main").pop());
   } catch (error) {
     console.error("Error: ", error.message);
   }
 };
 
 setTimeout(() => {
-  console.log("Timeout in Main");
-}, 2000);
+  console.log("Timeout in app worker!");
+}, 0);
 
 main();
