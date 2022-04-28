@@ -1,6 +1,9 @@
 const { Worker } = require("worker_threads");
 const { fork } = require("child_process");
 const { performance, PerformanceObserver } = require("perf_hooks");
+const { readFileSync } = require("fs");
+
+const file = readFileSync("./video.mp4");
 
 const performanceObserver = new PerformanceObserver(items => {
   items.getEntries().forEach(entry => {
@@ -17,6 +20,7 @@ const workerFunction = array => {
     const worker = new Worker("./worker.js", {
       workerData: {
         array,
+        file,
       },
     });
 
@@ -37,7 +41,7 @@ const forkFunction = array => {
     performance.mark("startForkFunction");
     const forkProcess = fork("fork.js");
 
-    forkProcess.send({ array });
+    forkProcess.send({ array, file });
     forkProcess.on("message", message => {
       performance.mark("endForkFunction");
       performance.measure(
