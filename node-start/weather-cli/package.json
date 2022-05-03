@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "CLI app for getting weather. Eduproject.",
   "main": "index.js",
+  "bin": "./index.js",
+  "engines": {
+    "node": ">14"
+  },
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
