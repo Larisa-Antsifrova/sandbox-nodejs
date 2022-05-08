@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import { getArgs } from "./helpers/args.js";
+import { printError, printSuccess, printHelp } from "./services/logService.js";
 
 const initCLI = () => {
   const args = getArgs(process.argv);
   if (args.h) {
-    // Display help
+    printHelp();
   }
 
   if (args.s) {
