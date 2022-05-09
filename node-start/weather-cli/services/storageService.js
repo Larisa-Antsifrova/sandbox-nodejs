@@ -1,4 +1,15 @@
 import { homedir } from "os";
+import { join } from "path";
+
+const filePath = join(homedir(), "weather-data.json");
+
+const saveKeyValue = (key, value) => {};
+
+export { saveKeyValue };
+
+// path cheat sheet
+
+/*
 import {
   join,
   basename,
@@ -10,9 +21,8 @@ import {
   sep,
 } from "path";
 
-const filePath = join(homedir(), "weather-data.json");
+  const filePath = join(homedir(), "weather-data.json");
 
-const saveKeyValue = (key, value) => {
   console.log(filePath);
   console.log(basename(filePath));
   console.log(dirname(filePath));
@@ -21,6 +31,4 @@ const saveKeyValue = (key, value) => {
   console.log(isAbsolute(filePath));
   console.log(resolve(".."));
   console.log(sep);
-};
-
-export { saveKeyValue };
+*/
