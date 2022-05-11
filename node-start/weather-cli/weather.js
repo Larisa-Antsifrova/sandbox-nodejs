@@ -2,8 +2,19 @@
 import { getArgs } from "./helpers/args.js";
 import { printError, printSuccess, printHelp } from "./services/logService.js";
 import { saveKeyValue } from "./services/storageService.js";
+
+const saveToken = async token => {
+  try {
+    await saveKeyValue("token", token);
+    printSuccess("The token is saved.");
+  } catch (error) {
+    printError(error.message);
+  }
+};
+
 const initCLI = () => {
   const args = getArgs(process.argv);
+
   if (args.h) {
     printHelp();
   }
@@ -13,8 +24,7 @@ const initCLI = () => {
   }
 
   if (args.t) {
-    saveKeyValue("token", args.t);
-    // Save the token
+    return saveToken(args.t);
   }
 
   // Display weather
