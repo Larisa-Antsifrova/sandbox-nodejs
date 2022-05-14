@@ -2,7 +2,8 @@ import axios from "axios";
 import { getKeyValue, TOKEN_DICTIONARY } from "./storageService.js";
 
 const getWeather = async city => {
-  const token = await getKeyValue(TOKEN_DICTIONARY.token);
+  const token =
+    process.env.TOKEN ?? (await getKeyValue(TOKEN_DICTIONARY.token));
 
   if (!token) {
     throw new Error("No token found.");
