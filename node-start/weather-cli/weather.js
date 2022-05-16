@@ -18,6 +18,20 @@ const saveToken = async token => {
   }
 };
 
+const saveCity = async city => {
+  if (!city.length) {
+    printError("No city name provided.");
+    return;
+  }
+
+  try {
+    await saveKeyValue(TOKEN_DICTIONARY.city, city);
+    printSuccess("The city name is saved.");
+  } catch (error) {
+    printError(error.message);
+  }
+};
+
 const getForcast = async () => {
   try {
     const weather = await getWeather(process.env.CITY);
@@ -40,7 +54,7 @@ const initCLI = () => {
   }
 
   if (args.s) {
-    // Save the city
+    return saveCity(args.s);
   }
 
   if (args.t) {
