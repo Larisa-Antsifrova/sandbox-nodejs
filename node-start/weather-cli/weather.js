@@ -43,7 +43,7 @@ const saveCity = async city => {
 
 const getForcast = async () => {
   try {
-    const city = process.env.CITY ?? getKeyValue(TOKEN_DICTIONARY.city);
+    const city = process.env.CITY ?? (await getKeyValue(TOKEN_DICTIONARY.city));
 
     const weather = await getWeather(city);
 
