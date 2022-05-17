@@ -20,4 +20,17 @@ const printHelp = () => {
   );
 };
 
-export { printError, printSuccess, printHelp };
+const printWeather = (response, icon) => {
+  console.log(
+    dedent`${chalk.bgBlueBright("WEATHER ")}
+    Weather in ${response.name}:
+    ${icon}  ${response.weather[0].description}
+    Temperature: ${response.main.temp}
+    Feels like ${response.main.feels_like}
+    Humidity: ${response.main.humidity}%
+    Wind: ${response.wind.speed} m/s
+    `,
+  );
+};
+
+export { printError, printSuccess, printHelp, printWeather };

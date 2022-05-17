@@ -1,8 +1,17 @@
 #!/usr/bin/env node
 import { getArgs } from "./helpers/args.js";
-import { printError, printSuccess, printHelp } from "./services/logService.js";
-import { saveKeyValue, TOKEN_DICTIONARY } from "./services/storageService.js";
-import { getWeather } from "./services/apiService.js";
+import {
+  printError,
+  printSuccess,
+  printHelp,
+  printWeather,
+} from "./services/logService.js";
+import {
+  saveKeyValue,
+  getKeyValue,
+  TOKEN_DICTIONARY,
+} from "./services/storageService.js";
+import { getWeather, getIcon } from "./services/apiService.js";
 
 const saveToken = async token => {
   if (!token.length) {
@@ -34,7 +43,11 @@ const saveCity = async city => {
 
 const getForcast = async () => {
   try {
-    const weather = await getWeather(process.env.CITY);
+    const city = process.env.CITY ?? getKeyValue(TOKEN_DICTIONARY.city);
+
+    const weather = await getWeather(city);
+
+    printWeather(weather, getIcon(weather.weather[0].icon));
   } catch (e) {
     if (e?.response?.status == 404) {
       printError("The provided city was not found.");
@@ -50,7 +63,7 @@ const initCLI = () => {
   const args = getArgs(process.argv);
 
   if (args.h) {
-    printHelp();
+    return printHelp();
   }
 
   if (args.s) {
@@ -61,7 +74,7 @@ const initCLI = () => {
     return saveToken(args.t);
   }
 
-  getForcast();
+  return getForcast();
 };
 
 initCLI();
