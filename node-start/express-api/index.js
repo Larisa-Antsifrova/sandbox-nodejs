@@ -1,27 +1,13 @@
-import http from "http";
+import express from "express";
 
-const host = "127.0.0.1";
 const port = 8888;
 
-const server = http.createServer((request, response) => {
-  switch (request.method) {
-    case "GET":
-      switch (request.url) {
-        case "/hello":
-          response.statusCode = 200;
-          response.setHeader("Content-Type", "text/plain");
-          response.end("Hi!");
-          break;
+const app = express();
 
-        default:
-          response.statusCode = 404;
-          response.setHeader("Content-Type", "text/plain");
-          response.end("NOthing Found!");
-      }
-      break;
-  }
+app.get("/hello", (req, res) => {
+  res.send("Hi from express!");
 });
 
-server.listen(port, host, () => {
-  console.log(`Server is on ${host}: ${port}`);
+app.listen(port, () => {
+  console.log(`Server is on port: ${port}`);
 });
