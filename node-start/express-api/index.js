@@ -16,3 +16,10 @@ app.get("/hello", (req, res) => {
 app.listen(port, () => {
   console.log(`Server is on port: ${port}`);
 });
+
+// extra symbols
+// ? - might not be included
+// + - any number of the same characters after that
+// * - any number of any characters
+// (group)? - the symbols might be applied for groupping
+// RegEx - can be used in endpoints
