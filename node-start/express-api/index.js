@@ -9,9 +9,16 @@ app.all("/hello", (req, res, next) => {
   next();
 });
 
-app.get("/hello", (req, res) => {
-  res.send("Hi from express!");
-});
+const callbackOne = (req, res, next) => {
+  console.log("Hello from Callback One");
+  next();
+};
+
+const callbackTwo = (req, res, next) => {
+  res.send("Hello from Callback Two");
+};
+
+app.get("/hello", callbackOne, callbackTwo);
 
 app.listen(port, () => {
   console.log(`Server is on port: ${port}`);
