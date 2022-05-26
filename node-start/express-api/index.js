@@ -15,7 +15,10 @@ const callbackOne = (req, res, next) => {
 };
 
 const callbackTwo = (req, res, next) => {
-  res.status(201).json({ success: true });
+  res.status(201).send({ success: true });
+
+  // res.download("path.pdf", "customname.pdf");
+  // res.redirect(301, 'https://address-to-redirect.com')
 };
 
 app.get("/hello", callbackOne, callbackTwo);
