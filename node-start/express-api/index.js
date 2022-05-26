@@ -15,7 +15,7 @@ const callbackOne = (req, res, next) => {
 };
 
 const callbackTwo = (req, res, next) => {
-  res.send("Hello from Callback Two");
+  res.status(201).json({ success: true });
 };
 
 app.get("/hello", callbackOne, callbackTwo);
