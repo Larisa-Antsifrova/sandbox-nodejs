@@ -39,4 +39,5 @@ docker run -d --rm --name rabbitmq -p 5672:5672 rabbitmq:3
 - v8
 - Performance measurement
 - CLI App
+- HTTP package
 - Express App
