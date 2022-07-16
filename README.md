@@ -41,3 +41,7 @@ docker run -d --rm --name rabbitmq -p 5672:5672 rabbitmq:3
 - CLI App
 - HTTP package
 - Express App
+
+### Websockets
+- socket.io
+- socket.io-client
